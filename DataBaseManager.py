@@ -7,14 +7,6 @@ def baglantiOlustur():
     cursor = cnx.cursor(buffered=True)
     return cursor, cnx
 
-mycursor, cnx = baglantiOlustur()
-
-mycursor.execute("show tables")
-for i in mycursor:
-    print(i)
-
-
-
 
 class Student:
     def __init__(self):
