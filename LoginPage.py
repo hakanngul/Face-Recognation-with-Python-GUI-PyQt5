@@ -7,6 +7,9 @@ import DataBaseManager
 from ui_pages.ui_login import Ui_LoginForm
 from OgretmenKayit import KayitWidget
 from hoca_ekrani import HocaEkraniWidget
+import DBCreate
+
+
 
 
 class LoginWindow(QWidget):
@@ -56,7 +59,7 @@ class LoginWindow(QWidget):
 
 if __name__ == '__main__':
     import sys
-
+    DBCreate.DBCreate()
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle("fusion")
     loginWindow = LoginWindow()
