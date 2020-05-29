@@ -4,7 +4,7 @@ import mysql.connector
 def DBCreate():
     schema = "CREATE SCHEMA IF NOT EXISTS mydatabase2"
 
-    connection = mysql.connector.connect(user="root", password="123456", host="localhost", database="mydatabase2",
+    connection = mysql.connector.connect(user="root", password="123456", host="localhost",
                                          auth_plugin="mysql_native_password")
     cursor = connection.cursor(buffered=True)
     cursor.execute(schema)
@@ -62,3 +62,6 @@ def DBCreate():
     cursor.execute(teacher_table)
 
     connection.close()
+
+
+
