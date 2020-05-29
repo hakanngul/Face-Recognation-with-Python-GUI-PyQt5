@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HocaEkraniMainWindow</class>
+ <widget class="QMainWindow" name="HocaEkraniMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>510</width>
+    <height>554</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QFrame" name="frame">
+      <property name="styleSheet">
+       <string notr="true">QFrame{
+background: #354152;
+}
+
+QLineEdit{
+ border: 1px solid gray;
+    border-radius: 10px;
+    min-width: 6em;
+	font-size:20px;
+	padding-left:15px;
+	height:42px;
+	border-radius:15px;
+	border-color: #303030;
+	background: transparent;
+	color:white;
+}
+
+QPushButton{
+border-radius: 15px;
+	background-color: qlineargradient(spread:reflect, x1:1, y1:0.466409, x2:0.188, y2:0.482727, stop:0.823864 rgba(82, 185, 143, 255), stop:1 rgba(115, 185, 153, 255));
+padding: 8px 16px;
+color: white;
+font-size: 20px;
+}
+QPushButton#btn_login:pressed{
+color: black;
+background: #008bd1
+}
+QCommandLinkButton{
+font-size: 16px;
+background: #4c5d75;
+}
+QCommandLinkButton:pressed{
+	background-color: rgb(92, 186, 138);
+}
+
+
+QCheckBox{
+font-size:16px;;
+color:white;
+
+}
+
+
+QCheckBox::indicator{
+	height:15px;
+	width:15px;
+
+}
+QComboBox {
+    border: 1px solid gray;
+    border-radius: 10px;
+    min-width: 6em;
+	font-size:20px;
+	padding-left:15px;
+	height:42px;
+	border-radius:15px;
+	border-color: #303030;
+	background: transparent;
+	color:white;
+
+}
+
+QComboBox:on {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+QComboBox QAbstractItemView {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background: #354152;
+    border: 1px solid gray;
+	color:white;
+
+}
+
+QComboBox::drop-down {
+    border-color: white;
+}
+
+
+
+
+QLabel{
+	color:white;
+
+}
+
+
+
+
+
+
+</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLineEdit" name="text_AdSoyad">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>30</y>
+         <width>251</width>
+         <height>44</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>Adı ve Soyadı</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="text_Bolum">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>90</y>
+         <width>241</width>
+         <height>44</height>
+        </rect>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Normal</enum>
+       </property>
+       <property name="placeholderText">
+        <string>Bölüm</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="cmb_Model">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>160</y>
+         <width>241</width>
+         <height>44</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>VGG-Face</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>OpenFace</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Facenet</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>DeepFace</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QComboBox" name="cmb_Metrik">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>230</y>
+         <width>241</width>
+         <height>44</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>cosine</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>euclidean</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>euclidean_l2</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QComboBox" name="cmb_Dersler">
+       <property name="geometry">
+        <rect>
+         <x>12</x>
+         <y>326</y>
+         <width>471</width>
+         <height>44</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Öğretmene Ait Ders Kaydı Bulunamadı</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QCheckBox" name="checkBox">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>400</y>
+         <width>281</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Duygu - Yaş - Cinsiyet Analizi</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_login">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>470</y>
+         <width>257</width>
+         <height>40</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>SINIFI VE MODELİ YÜKLE</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="image_ogretmen">
+       <property name="geometry">
+        <rect>
+         <x>19</x>
+         <y>34</y>
+         <width>211</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>510</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuEkle">
+    <property name="title">
+     <string>Ekle</string>
+    </property>
+    <addaction name="action_DersEkle"/>
+    <addaction name="action_OgrenciEkle"/>
+    <addaction name="action_DerseOgrenciEkle"/>
+   </widget>
+   <widget class="QMenu" name="menuExit">
+    <property name="title">
+     <string>Düzenle</string>
+    </property>
+    <addaction name="action_OgrenciDuzenle"/>
+    <addaction name="action_OgretmenDuzenle"/>
+    <addaction name="action_SayfayiYenile"/>
+   </widget>
+   <widget class="QMenu" name="menuExit_2">
+    <property name="title">
+     <string>Exit</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuEkle"/>
+   <addaction name="menuExit"/>
+   <addaction name="menuExit_2"/>
+  </widget>
+  <action name="action_DersEkle">
+   <property name="text">
+    <string>Ders Ekle</string>
+   </property>
+  </action>
+  <action name="action_OgrenciDuzenle">
+   <property name="text">
+    <string>Öğrenci Düzenle</string>
+   </property>
+  </action>
+  <action name="action_OgrenciEkle">
+   <property name="text">
+    <string>Öğrenci Ekle</string>
+   </property>
+  </action>
+  <action name="action_DerseOgrenciEkle">
+   <property name="text">
+    <string>Öğrenciyi Derse Ekle</string>
+   </property>
+  </action>
+  <action name="action_OgretmenDuzenle">
+   <property name="text">
+    <string>Öğretmen Düzenle</string>
+   </property>
+  </action>
+  <action name="actionExit_2">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="action_SayfayiYenile">
+   <property name="text">
+    <string>Sayfayı Yenile</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
