@@ -63,7 +63,7 @@ def loadModel():
 
     home = str(Path.home())
 
-    if os.path.isfile(home + '/.faceAnalytics/weights/vgg_face_weights.h5') != True:
+    if not os.path.isfile(home + '/.faceAnalytics/weights/vgg_face_weights.h5'):
         print("vgg_face_weights.h5 will be downloaded...")
 
         url = 'https://drive.google.com/uc?id=1CPSeum3HpopfomUEK1gybeuIVoeJT_Eo'

@@ -325,10 +325,17 @@ class MainWindow(QMainWindow):
         for i in range(rows):
             for j in range(columns):
                 df.loc[i, j] = str(self.ui.sinif_listesi.item(i, j).text())
-        path = f'YoklamaKayitlari/{str(self.dersGenelKod)}_{now.day}_{now.month}_{now.year}.xlsx'
+
+        path = f'YoklamaKayitlari/{str(self.dersGenelKod)}_{now.day}_{now.month}_{now.year}'
+
         print(path)
         df.columns = ['OkulNo', 'Adı Soyadı', 'Yoklama Durumu', 'Tarih']
-        df.to_excel(path, index=False, header=True)
+        if not os.path.exists(path):
+            dosyaAdi = path + '.xlsx'
+            df.to_excel(dosyaAdi, index=False, header=True)
+        else:
+            dosyaAdi = path + '_1.xlsx'
+            df.to_excel(dosyaAdi, index=False, header=True)
         print("df", df)
         response = self.SendMail(path)
         print(response)
@@ -339,51 +346,54 @@ class MainWindow(QMainWindow):
 
     def SendMail(self, fileToSend):
         emailto = self.Teacher.getSelectedTeacherMail(self.kadi)[0]
-        print("emailto =>", emailto)
-        from datetime import datetime
-        now = datetime.now()
-        emailfrom = "ymh414bitirme@gmail.com"
-        username = "ymh414bitirme@gmail.com"
-        password = "ymh414Bitirmeprojesi@11"
-        msg = MIMEMultipart()
-        msg["From"] = emailfrom
-        msg["To"] = emailto
-        msg["Subject"] = f'{self.dersGenelKod} dersi {now.day}/{now.month}/{now.year}'
+        try:
+            print("emailto =>", emailto)
+            from datetime import datetime
+            now = datetime.now()
+            emailfrom = "ymh414bitirme@gmail.com"
+            username = "ymh414bitirme@gmail.com"
+            password = "ymh414Bitirmeprojesi@11"
+            msg = MIMEMultipart()
+            msg["From"] = emailfrom
+            msg["To"] = emailto
+            msg["Subject"] = f'{self.dersGenelKod} dersi {now.day}/{now.month}/{now.year}'
 
-        ctype, encoding = mimetypes.guess_type(fileToSend)
-        if ctype is None or encoding is not None:
-            ctype = "application/octet-stream"
+            ctype, encoding = mimetypes.guess_type(fileToSend)
+            if ctype is None or encoding is not None:
+                ctype = "application/octet-stream"
 
-        maintype, subtype = ctype.split("/", 1)
+            maintype, subtype = ctype.split("/", 1)
 
-        if maintype == "text":
-            fp = open(fileToSend)
-            # Note: we should handle calculating the charset
-            attachment = MIMEText(fp.read(), _subtype=subtype)
-            fp.close()
-        elif maintype == "image":
-            fp = open(fileToSend, "rb")
-            attachment = MIMEImage(fp.read(), _subtype=subtype)
-            fp.close()
-        elif maintype == "audio":
-            fp = open(fileToSend, "rb")
-            attachment = MIMEAudio(fp.read(), _subtype=subtype)
-            fp.close()
-        else:
-            fp = open(fileToSend, "rb")
-            attachment = MIMEBase(maintype, subtype)
-            attachment.set_payload(fp.read())
-            fp.close()
-            encoders.encode_base64(attachment)
-        attachment.add_header("Content-Disposition", "attachment", filename=fileToSend)
-        msg.attach(attachment)
+            if maintype == "text":
+                fp = open(fileToSend)
+                # Note: we should handle calculating the charset
+                attachment = MIMEText(fp.read(), _subtype=subtype)
+                fp.close()
+            elif maintype == "image":
+                fp = open(fileToSend, "rb")
+                attachment = MIMEImage(fp.read(), _subtype=subtype)
+                fp.close()
+            elif maintype == "audio":
+                fp = open(fileToSend, "rb")
+                attachment = MIMEAudio(fp.read(), _subtype=subtype)
+                fp.close()
+            else:
+                fp = open(fileToSend, "rb")
+                attachment = MIMEBase(maintype, subtype)
+                attachment.set_payload(fp.read())
+                fp.close()
+                encoders.encode_base64(attachment)
+            attachment.add_header("Content-Disposition", "attachment", filename=fileToSend)
+            msg.attach(attachment)
 
-        server = smtplib.SMTP("smtp.gmail.com:587")
-        server.starttls()
-        server.login(username, password)
-        server.sendmail(emailfrom, emailto, msg.as_string())
-        server.quit()
-        return True
+            server = smtplib.SMTP("smtp.gmail.com:587")
+            server.starttls()
+            server.login(username, password)
+            server.sendmail(emailfrom, emailto, msg.as_string())
+            server.quit()
+            return True
+        except:
+            QMessageBox.critical(self, "Hata", "Bir Hata Oluştu Lütfen Email veya İnterneti kontrol ediniz")
 
     def YoklamaGuncelle(self, ogrenciNo):
         from datetime import datetime
@@ -430,22 +440,19 @@ class MainWindow(QMainWindow):
         detected_faces = []
         face_index = 0
         for (x, y, w, h) in faces:
-            if w > 130:  # discard small detected faces
-
+            if w > 130:
                 self.face_detected = True
                 if face_index == 0:
-                    self.face_included_frames = self.face_included_frames + 1  # increase frame for a single face
+                    self.face_included_frames = self.face_included_frames + 1
 
                 profile_image_copy = img.copy()
-                cv2.rectangle(img, (x, y), (x + w, y + h), (67, 67, 67), 1)  # draw rectangle to main image
+                cv2.rectangle(img, (x, y), (x + w, y + h), (67, 67, 67), 1)
 
                 cv2.putText(img, str(self.frame_threshold - self.face_included_frames),
                             (int(x + w / 4), int(y + h / 1.5)),
                             cv2.FONT_HERSHEY_SIMPLEX, 4, (255, 255, 255), 2)
 
-                self.profile_image = profile_image_copy[int(y):int(y + h), int(x):int(x + w)]  # crop detected face
-
-                # -------------------------------------
+                self.profile_image = profile_image_copy[int(y):int(y + h), int(x):int(x + w)]
 
                 detected_faces.append((x, y, w, h))
                 face_index = face_index + 1
@@ -471,7 +478,7 @@ class MainWindow(QMainWindow):
                     cv2.rectangle(img, (x, y), (x + w, y + h), self.text_color, 3)
                     custom_face = self.base_img[y:y + h, x:x + w]
 
-                    [self.age, self.gender] = self.age_and_gender_find(custom_face, self.age_model, self.gender_model)
+                    self.age, self.gender = self.age_and_gender_find(custom_face, self.age_model, self.gender_model)
                     self.emotion = self.emotion_detection(self.emotion_model, custom_face)
 
                     custom_face = functions.detectFace(custom_face, self.input_shape)

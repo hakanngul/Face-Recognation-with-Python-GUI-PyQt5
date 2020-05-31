@@ -10,8 +10,6 @@ from hoca_ekrani import HocaEkraniWidget
 import DBCreate
 
 
-
-
 class LoginWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -59,6 +57,7 @@ class LoginWindow(QWidget):
 
 if __name__ == '__main__':
     import sys
+
     DBCreate.DBCreate()
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle("fusion")

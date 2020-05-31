@@ -30,7 +30,7 @@ def loadModel():
 
     home = str(Path.home())
 
-    if os.path.isfile(home + '/.faceAnalytics/weights/age_model_weights.h5') != True:
+    if not os.path.isfile(home + '/.faceAnalytics/weights/age_model_weights.h5'):
         print("age_model_weights.h5 will be downloaded...")
 
         url = 'https://drive.google.com/uc?id=1YCox_4kJ-BYeXq27uUbasu--yz28zUMV'

@@ -1,9 +1,8 @@
 import os
 from pathlib import Path
-import gdown
-from functools import partial
 
-from keras.models import Model
+import gdown
+from keras import backend as K
 from keras.layers import Activation
 from keras.layers import BatchNormalization
 from keras.layers import Concatenate
@@ -15,7 +14,7 @@ from keras.layers import Input
 from keras.layers import Lambda
 from keras.layers import MaxPooling2D
 from keras.layers import add
-from keras import backend as K
+from keras.models import Model
 
 
 def scaling(x, scale):
@@ -697,7 +696,7 @@ def loadModel():
 
     home = str(Path.home())
 
-    if os.path.isfile(home + '/.faceAnalytics/weights/facenet_weights.h5') != True:
+    if not os.path.isfile(home + '/.faceAnalytics/weights/facenet_weights.h5'):
         print("facenet_weights.h5 will be downloaded...")
 
         url = 'https://drive.google.com/uc?id=1971Xk5RwedbudGgTIrGAL4F7Aifu7id1'
