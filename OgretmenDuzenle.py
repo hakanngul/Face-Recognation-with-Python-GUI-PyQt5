@@ -3,7 +3,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox
 
 import DataBaseManager
-from ui_ogretmenDuzenle import Ui_OgretmenDuzenleForm
+from ui_pages.ui_ogretmenDuzenle import Ui_OgretmenDuzenleForm
 
 
 class OgretmenDuzenleWidget(QWidget):

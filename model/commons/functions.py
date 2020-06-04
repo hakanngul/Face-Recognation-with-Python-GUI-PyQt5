@@ -57,7 +57,9 @@ def initializeFolder():
     if not os.path.exists(home + "/.faceAnalytics/weights"):
         os.mkdir(home + "/.faceAnalytics/weights")
         print("Directory ", home, "/.faceAnalytics/weights created")
-
+    if not os.path.exists(home + "/.faceAnalytics/YoklamaKayitlari"):
+        os.mkdir(home + "/.faceAnalytics/YoklamaKayitlari")
+        print("Directory ", home, "/.faceAnalytics/YoklamaKayitlari created")
     # ----------------------------------
 
 # ----------------------------------

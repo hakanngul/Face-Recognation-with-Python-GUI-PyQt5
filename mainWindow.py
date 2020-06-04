@@ -2,12 +2,12 @@ import mimetypes
 import os
 import smtplib
 import time
+from datetime import datetime
 from email import encoders
-from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
-from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from pathlib import Path
 
 import cv2
 import numpy as np
@@ -209,21 +209,12 @@ class MainWindow(QMainWindow):
 
             self.df, self.model, self.threshold, self.input_shape = self.loadModelandEmbedding("database")
             self.emotion_model, self.age_model, self.gender_model = self.enable_face_analysis()
-            self.yazdir()
             self.Kontrol = True
             self.Table()
             QMessageBox.information(self, "Model Yüklemesi", "Tamamlandı")
             QMessageBox.information(self, "Sınıf Yüklemesi", "Tamamlandı")
         else:
             QMessageBox.critical(self, "Hata", "Model Zaten Yüklü")
-
-    def yazdir(self):
-        print("Df :", self.df)
-        print("Model : ", self.model)
-        print("Threshold : ", self.threshold)
-        print("Input : ", self.input_shape)
-        print("Age Model: ", self.age_model)
-        print("Gender Model: ", self.gender_model)
 
     def enable_face_analysis(self):
         tic = time.time()
@@ -326,38 +317,43 @@ class MainWindow(QMainWindow):
             for j in range(columns):
                 df.loc[i, j] = str(self.ui.sinif_listesi.item(i, j).text())
 
-        path = f'YoklamaKayitlari/{str(self.dersGenelKod)}_{now.day}_{now.month}_{now.year}'
-
-        print(path)
+        fileName = f'{str(self.dersGenelKod)}_{now.day}_{now.month}_{now.year}'
+        home = str(Path.home())
+        home = home + "/.faceAnalytics"
+        home = home + "/YoklamaKayitlari"
         df.columns = ['OkulNo', 'Adı Soyadı', 'Yoklama Durumu', 'Tarih']
-        if not os.path.exists(path):
-            dosyaAdi = path + '.xlsx'
-            df.to_excel(dosyaAdi, index=False, header=True)
+        if os.path.exists(home + "/" + fileName + ".xlsx"):
+            print("Bu Kayıt Var")
+            df.to_excel(home + "/" + fileName + "_1" + ".xlsx", index=False, header=True)
         else:
-            dosyaAdi = path + '_1.xlsx'
-            df.to_excel(dosyaAdi, index=False, header=True)
-        print("df", df)
-        response = self.SendMail(path)
+            df.to_excel(home + "/" + fileName + ".xlsx", index=False, header=True)
+
+        self.home = home + "/"
+        fileName += ".xlsx"
+        response = self.SendMail(fileName)
         print(response)
         if response:
             QMessageBox.information(self, "Bilgi", "Mail Gönderildi")
         else:
             QMessageBox.warning(self, "Bilgi", "Bir Hata Oluştu")
 
-    def SendMail(self, fileToSend):
+    # noinspection PyBroadException
+    def SendMail(self, fileName):
+        self.home += fileName
+        fileToSend = self.home
         emailto = self.Teacher.getSelectedTeacherMail(self.kadi)[0]
+        print("emailto =>", emailto)
         try:
-            print("emailto =>", emailto)
-            from datetime import datetime
             now = datetime.now()
+            subject = f'{self.dersGenelKod} dersi {now.day}/{now.month}/{now.year}'
+            print("subject => ", subject)
             emailfrom = "ymh414bitirme@gmail.com"
             username = "ymh414bitirme@gmail.com"
             password = "ymh414Bitirmeprojesi@11"
             msg = MIMEMultipart()
             msg["From"] = emailfrom
             msg["To"] = emailto
-            msg["Subject"] = f'{self.dersGenelKod} dersi {now.day}/{now.month}/{now.year}'
-
+            msg["Subject"] = subject
             ctype, encoding = mimetypes.guess_type(fileToSend)
             if ctype is None or encoding is not None:
                 ctype = "application/octet-stream"
@@ -366,16 +362,7 @@ class MainWindow(QMainWindow):
 
             if maintype == "text":
                 fp = open(fileToSend)
-                # Note: we should handle calculating the charset
                 attachment = MIMEText(fp.read(), _subtype=subtype)
-                fp.close()
-            elif maintype == "image":
-                fp = open(fileToSend, "rb")
-                attachment = MIMEImage(fp.read(), _subtype=subtype)
-                fp.close()
-            elif maintype == "audio":
-                fp = open(fileToSend, "rb")
-                attachment = MIMEAudio(fp.read(), _subtype=subtype)
                 fp.close()
             else:
                 fp = open(fileToSend, "rb")
@@ -383,7 +370,8 @@ class MainWindow(QMainWindow):
                 attachment.set_payload(fp.read())
                 fp.close()
                 encoders.encode_base64(attachment)
-            attachment.add_header("Content-Disposition", "attachment", filename=fileToSend)
+            f = fileToSend.replace('\\', '/').split('/')[-1].split('.')[0]
+            attachment.add_header("Content-Disposition", "attachment", filename=str(f))
             msg.attach(attachment)
 
             server = smtplib.SMTP("smtp.gmail.com:587")
@@ -392,8 +380,8 @@ class MainWindow(QMainWindow):
             server.sendmail(emailfrom, emailto, msg.as_string())
             server.quit()
             return True
-        except:
-            QMessageBox.critical(self, "Hata", "Bir Hata Oluştu Lütfen Email veya İnterneti kontrol ediniz")
+        except Exception as e:
+            QMessageBox.warning(self, "Uyarı", "İnternet veya Email Adresinizi Kontrol Ediniz :", e)
 
     def YoklamaGuncelle(self, ogrenciNo):
         from datetime import datetime

@@ -1,7 +1,6 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSlot, QCoreApplication
-
 from PyQt5.QtWidgets import QWidget, QMessageBox
+
 import DataBaseManager
 from ui_pages.ui_dersEkle import Ui_DersEkleForm
 

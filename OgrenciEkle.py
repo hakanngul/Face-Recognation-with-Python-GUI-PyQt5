@@ -1,11 +1,13 @@
+import os
+import sys
+
 import cv2
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QPixmap, QIntValidator, QImage
-from PyQt5.QtWidgets import QWidget, QMainWindow, QApplication, QMessageBox
-from ui_pages.ui_ogrenciEkle2 import Ui_OgrenciEkleWindow
-import sys
-import os
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
+
 import DataBaseManager
+from ui_pages.ui_ogrenciEkle2 import Ui_OgrenciEkleWindow
 
 
 class OgrenciEkleWindow(QMainWindow):

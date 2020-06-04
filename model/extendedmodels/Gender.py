@@ -1,11 +1,11 @@
-from model.basemodels import VGGFace
-
 import os
 from pathlib import Path
+
 import gdown
-import numpy as np
-from keras.models import Model, Sequential
 from keras.layers import Convolution2D, Flatten, Activation
+from keras.models import Model, Sequential
+
+from model.basemodels import VGGFace
 
 
 def loadModel():
@@ -29,7 +29,7 @@ def loadModel():
 
     home = str(Path.home())
 
-    if os.path.isfile(home + '/.faceAnalytics/weights/gender_model_weights.h5') != True:
+    if not os.path.isfile(home + '/.faceAnalytics/weights/gender_model_weights.h5'):
         print("gender_model_weights.h5 will be downloaded...")
 
         url = 'https://drive.google.com/uc?id=1wUXRVlbsni2FN9-jkS_f4UTUrm1bRLyk'

@@ -79,9 +79,8 @@ class HocaEkraniWidget(QMainWindow):
         try:
             from OgretmenDuzenle import OgretmenDuzenleWidget
             self.ogrenciAraWidget = OgretmenDuzenleWidget(self.kadi, self.sifre)
-
-        except:
-            QMessageBox.warning(self, "Uyarı", "Bir Hata Oluştu")
+        except Exception as e:
+            QMessageBox.warning(self, "Uyarı", "Bir Hata Oluştu Hata :", e)
 
     def BilgileriGetir(self):
         data = (self.kadi, self.sifre)
@@ -122,8 +121,6 @@ class HocaEkraniWidget(QMainWindow):
         elif len(countTakenStudents[0].split(",")) < 1:
             QMessageBox.warning(self, "Uyarı", "Derse Kayıtlı Öğrenci Yok Önce Derse Öğrenci Ekleyiniz")
         else:
-            # from mainWindow import MainWindow
-            # self.AnaWidget = MainWindow(self.id, self.kadi, self.sifre, genelkod, model_name, distance_metric)
             try:
                 from mainWindow import MainWindow
                 self.AnaWidget = MainWindow(self.id, self.kadi, self.sifre, genelkod, model_name, distance_metric)
