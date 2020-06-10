@@ -132,7 +132,7 @@ class MainWindow(QMainWindow):
     def LoadDatabases(self):
         try:
             self.LoadClassInformations()
-            self.Table()
+            self.Table() # SinifListesi Yüklemesi İşlemi Yapılıyor
         except:
             print("DB de sorun oluştu")
 
