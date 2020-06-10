@@ -1,38 +1,23 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSlot, QCoreApplication
-
 from PyQt5.QtWidgets import QWidget, QMessageBox
-
+import DBCreate
 import DataBaseManager
-from ui_pages.ui_login import Ui_LoginForm
 from OgretmenKayit import KayitWidget
 from hoca_ekrani import HocaEkraniWidget
-import DBCreate
+from ui_pages.ui_login import Ui_LoginForm
 
 
 class LoginWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.ui = Ui_LoginForm()
-        self.mainWindow = None
-        self.initUI()
-
-    def initUI(self):
         self.ui.setupUi(self)
-
-        self.ui.text_kullaniciAdi.setText("hakn")
-        self.ui.text_Sifre.setText("123456")
         self.initSlots()
-
-    @pyqtSlot()
-    def kayitWidget(self):
-        self.register = KayitWidget()
 
     def initSlots(self):
         self.ui.btn_login.clicked.connect(self.login)
         self.ui.btn_kayit.clicked.connect(self.kayitWidget)
 
-    @pyqtSlot()
     def login(self):
         data = (
             self.ui.text_kullaniciAdi.text().lower(),
@@ -53,6 +38,9 @@ class LoginWindow(QWidget):
                 self.destroy(destroyWindow=True)
             else:
                 QMessageBox.warning(self, "Dikkat !!", "Kullanıcı Adı veya Şifre Yanlış")
+
+    def kayitWidget(self):
+        self.register = KayitWidget()
 
 
 if __name__ == '__main__':

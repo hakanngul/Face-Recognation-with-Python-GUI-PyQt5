@@ -8,6 +8,8 @@ from ui_pages.ui_dersEkle import Ui_DersEkleForm
 class DersEkleWidget(QWidget):
     def __init__(self, ogretmen_kadi, ogretmen_sifre):
         super().__init__()
+        print(ogretmen_kadi)
+        print(ogretmen_sifre)
         self.ui = Ui_DersEkleForm()
         self.ui.setupUi(self)
         self.kadi = ogretmen_kadi
@@ -40,7 +42,7 @@ class DersEkleWidget(QWidget):
                 self.ui.cmb_Bolum.setEnabled(False)
             self.BilgileriGom()
         else:
-            print("Hocanın Bilgileri Çekmede Sorun oldu!!")
+            QMessageBox.warning(self, "Uyarı", "Hocanın Bilgileri Çekmede Sorun oldu!!")
         # try:
         #     result = self.Teacher.getTeacherInformation(self.kadi,self.sifre)
         #     print("Ders Ekle İçi", result)
@@ -101,12 +103,10 @@ class DersEkleWidget(QWidget):
     def HocayaDersEkle(self):
         # TODO: Bu Öğretmene Ders Ekleme Fonksiyonu
         if self.ui.text_DersKodu.text() != "" or self.ui.text_DersKodu != " ":
-            # result = db.getUserInformation((self.kadi, self.sifre))[0]
-            result = self.Teacher.getTeacherInformation((self.kadi,self.sifre))
+            result = self.Teacher.getTeacherInformation((self.kadi, self.sifre))
             result = result[0]
             genelDersler = []
             id = result[0]
-            KullanıcıAdi = result[1]
             derskodu = self.ui.text_DersKodu.text().lower()
             dersAdi = self.ui.text_DersAdi.text().lower()
             sube = self.ui.cmb_Sube.currentText()
@@ -124,7 +124,6 @@ class DersEkleWidget(QWidget):
 
             if dersler == None:
                 dersler = genelkod
-                # db.OgretmeneDersEkle(dersler, result[0])
                 sonuc = self.DersEkle(data)
                 if sonuc:
                     self.Teacher.UpdateTeacherLessons((dersler, result[0]))
@@ -135,7 +134,6 @@ class DersEkleWidget(QWidget):
                 QMessageBox.warning(self, "Uyarı", "Bu ders zaten kayıtlı")
             elif ',' in dersler:
                 dersler = dersler + ',' + genelkod
-                # db.OgretmeneDersEkle(dersler, result[0])
                 sonuc = self.DersEkle(data)
                 if sonuc:
                     self.Teacher.UpdateTeacherLessons((dersler, result[0]))
@@ -144,7 +142,6 @@ class DersEkleWidget(QWidget):
                     QMessageBox.warning(self, "Hata", "Ders Eklenemedi!")
             elif len(genelDersler) < 2:
                 dersler = dersler + ',' + genelkod
-                # db.OgretmeneDersEkle(dersler, result[0])
                 sonuc = self.DersEkle(data)
                 if sonuc:
                     self.Teacher.UpdateTeacherLessons((dersler, result[0]))

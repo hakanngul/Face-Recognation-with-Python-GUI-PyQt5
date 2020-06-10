@@ -8,6 +8,7 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
+from numba import jit, cuda
 
 import cv2
 import numpy as np
@@ -21,8 +22,7 @@ from tqdm import tqdm
 import DataBaseManager
 from ui_pages.ui_mainWindow import Ui_MainWindow
 
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-# os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '0'
 os.environ["CUDA_DEVICE_ORDER"] = "0000:01:00.0"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
@@ -132,6 +132,7 @@ class MainWindow(QMainWindow):
     def LoadDatabases(self):
         try:
             self.LoadClassInformations()
+            self.Table()
         except:
             print("DB de sorun oluştu")
 
@@ -142,17 +143,14 @@ class MainWindow(QMainWindow):
 
     def loadSinif(self):
         self.SinifListesi = self.Lesson.getLessonTakenStudents(self.dersGenelKod)[0].split(",")
-        print("self.SinifListesi =>", self.SinifListesi)
+        # print("self.SinifListesi =>", self.SinifListesi)
 
     def loadModelandEmbedding(self, db_path):
         global input_shape
         model_name = self.model_name
         distance_metric = self.distance_metric
         employees = []
-        # liste = list(db.getDersBilgileri(self.dersGenelKod))[0].split(",")
         liste = self.SinifListesi
-        print(liste)
-        print(len(liste))
         if len(liste) > 0:
             if os.path.isdir(db_path):
                 for r, d, f in os.walk(db_path):  # r=root, d=directories, f = files
@@ -179,11 +177,11 @@ class MainWindow(QMainWindow):
                     raise ValueError("Invalid model_name passed - ", model_name)
                 threshold = functions.findThreshold(model_name, distance_metric)
             tic = time.time()
-            pbar = tqdm(range(0, len(employees)), desc='Finding embeddings')
+            pbar = tqdm(range(0, len(employees)), desc='Embedingler Bulundu')
             embeddings = []
             for index in pbar:
                 employee = employees[index]
-                pbar.set_description("Finding embedding for %s" % (employee.split("/")[-1]))
+                pbar.set_description("Embeding  %s" % (employee.split("/")[-1]))
                 embedding = []
                 if functions.detectFace(employee, input_shape) is not None:
                     img = functions.detectFace(employee, input_shape)
@@ -197,7 +195,7 @@ class MainWindow(QMainWindow):
             df = pd.DataFrame(embeddings, columns=['employee', 'embedding'])
             df['distance_metric'] = distance_metric
             toc = time.time()
-            print("Embeddings found for given data set in ", toc - tic, " seconds")
+            print("Embedinglerin Okunma Süresi  ", toc - tic, " saniye sürdü")
             return df, model, threshold, input_shape
         else:
             QMessageBox.critical(self, "Dikkat", "Sınıf Listesi Yüklenemedi loadModelandEmbedding")
@@ -210,7 +208,7 @@ class MainWindow(QMainWindow):
             self.df, self.model, self.threshold, self.input_shape = self.loadModelandEmbedding("database")
             self.emotion_model, self.age_model, self.gender_model = self.enable_face_analysis()
             self.Kontrol = True
-            self.Table()
+
             QMessageBox.information(self, "Model Yüklemesi", "Tamamlandı")
             QMessageBox.information(self, "Sınıf Yüklemesi", "Tamamlandı")
         else:
@@ -331,7 +329,7 @@ class MainWindow(QMainWindow):
         self.home = home + "/"
         fileName += ".xlsx"
         response = self.SendMail(fileName)
-        print(response)
+        # print(response)
         if response:
             QMessageBox.information(self, "Bilgi", "Mail Gönderildi")
         else:
@@ -399,10 +397,10 @@ class MainWindow(QMainWindow):
     def Table(self):
         try:
             result = self.dersiAlanOgrenciler
-            print(result)
+            # print(result)
             self.ui.sinif_listesi.setRowCount(len(result))
             for i in range(len(result)):
-                print(i)
+                # print(i)
                 self.ui.sinif_listesi.setItem(i, 0, QTableWidgetItem(result[i]))
                 self.ui.sinif_listesi.setItem(i, 2, QTableWidgetItem("Gelmedi"))
                 self.ui.sinif_listesi.setItem(i, 3, QTableWidgetItem("NULL"))

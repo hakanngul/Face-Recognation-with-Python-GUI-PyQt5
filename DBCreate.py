@@ -26,6 +26,7 @@ def DBCreate():
       UNIQUE INDEX `Lessons_GeneralCode_UNIQUE` (`Lessons_GeneralCode` ASC) VISIBLE);
     """
     cursor.execute(lesson_table)
+
     student_table = """
     CREATE TABLE IF NOT EXISTS `mydatabase2`.`student`  (
       `Student_id` INT NOT NULL AUTO_INCREMENT,

@@ -24,7 +24,7 @@
   </property>
   <widget class="QWidget" name="Window">
    <property name="styleSheet">
-    <string notr="true">QWidget{background: #354152;}
+    <string notr="true">
 QLabel{color:white;}
 QTableWidget{background:white;}
 QTableWidget::item {
@@ -65,7 +65,7 @@ QTableWidget::item {
      <enum>Qt::LeftToRight</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: transparent;</string>
+     <string notr="true">background: #354152;</string>
     </property>
     <property name="text">
      <string>TextLabel</string>
@@ -87,7 +87,7 @@ QTableWidget::item {
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Öğrencilerin Bulunduğu Liste&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="styleSheet">
-     <string notr="true">selection-background-color: rgb(233, 185, 110);</string>
+     <string notr="true"/>
     </property>
     <property name="editTriggers">
      <set>QAbstractItemView::SelectedClicked</set>
@@ -230,6 +230,9 @@ QTableWidget::item {
       <height>80</height>
      </size>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background: #354152;</string>
+    </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
     </property>
@@ -327,7 +330,7 @@ QTableWidget::item {
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background:white;</string>
+      <string notr="true">background:transparent;</string>
      </property>
      <property name="text">
       <string/>
@@ -456,6 +459,9 @@ QTableWidget::item {
       <width>551</width>
       <height>120</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #354152;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>

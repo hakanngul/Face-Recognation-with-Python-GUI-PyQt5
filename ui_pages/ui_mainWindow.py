@@ -18,13 +18,13 @@ class Ui_MainWindow(object):
         MainWindow.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         MainWindow.setStyleSheet("")
         self.Window = QtWidgets.QWidget(MainWindow)
-        self.Window.setStyleSheet("QWidget{background: #354152;}\n"
-                                  "QLabel{color:white;}\n"
-                                  "QTableWidget{background:white;}\n"
-                                  "QTableWidget::item {\n"
-                                  "    background-color: white;\n"
-                                  "    color:black;\n"
-                                  "}")
+        self.Window.setStyleSheet("\n"
+"QLabel{color:white;}\n"
+"QTableWidget{background:white;}\n"
+"QTableWidget::item {\n"
+"    background-color: white;\n"
+"    color:black;\n"
+"}")
         self.Window.setObjectName("Window")
         self.kamera_ekrani = QtWidgets.QLabel(self.Window)
         self.kamera_ekrani.setGeometry(QtCore.QRect(0, 120, 800, 470))
@@ -35,12 +35,13 @@ class Ui_MainWindow(object):
         self.kamera_ekrani.setFont(font)
         self.kamera_ekrani.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         self.kamera_ekrani.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.kamera_ekrani.setStyleSheet("background-color: transparent;")
+        self.kamera_ekrani.setStyleSheet("background: #354152;")
         self.kamera_ekrani.setAlignment(QtCore.Qt.AlignCenter)
         self.kamera_ekrani.setObjectName("kamera_ekrani")
         self.sinif_listesi = QtWidgets.QTableWidget(self.Window)
+        self.sinif_listesi.setEnabled(False)
         self.sinif_listesi.setGeometry(QtCore.QRect(800, 120, 551, 491))
-        self.sinif_listesi.setStyleSheet("selection-background-color: rgb(233, 185, 110);")
+        self.sinif_listesi.setStyleSheet("")
         self.sinif_listesi.setEditTriggers(QtWidgets.QAbstractItemView.SelectedClicked)
         self.sinif_listesi.setObjectName("sinif_listesi")
         self.sinif_listesi.setColumnCount(4)
@@ -74,7 +75,7 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.sinif_listesi.setVerticalHeaderItem(13, item)
         item = QtWidgets.QTableWidgetItem()
-        item.setTextAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignVCenter)
+        item.setTextAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignVCenter)
         font = QtGui.QFont()
         font.setKerning(False)
         item.setFont(font)
@@ -101,6 +102,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.ogrenci_info.sizePolicy().hasHeightForWidth())
         self.ogrenci_info.setSizePolicy(sizePolicy)
         self.ogrenci_info.setMinimumSize(QtCore.QSize(800, 80))
+        self.ogrenci_info.setStyleSheet("background: #354152;")
         self.ogrenci_info.setFrameShape(QtWidgets.QFrame.Box)
         self.ogrenci_info.setFrameShadow(QtWidgets.QFrame.Raised)
         self.ogrenci_info.setLineWidth(1)
@@ -133,7 +135,7 @@ class Ui_MainWindow(object):
         self.label_girilenDers.setObjectName("label_girilenDers")
         self.profile_picture = QtWidgets.QLabel(self.ogrenci_info)
         self.profile_picture.setGeometry(QtCore.QRect(10, 10, 100, 100))
-        self.profile_picture.setStyleSheet("background:white;")
+        self.profile_picture.setStyleSheet("background:transparent;")
         self.profile_picture.setText("")
         self.profile_picture.setPixmap(QtGui.QPixmap("personReal.png"))
         self.profile_picture.setScaledContents(True)
@@ -176,6 +178,7 @@ class Ui_MainWindow(object):
         self.lbl_cinsiyet.setObjectName("lbl_cinsiyet")
         self.ders_info = QtWidgets.QFrame(self.Window)
         self.ders_info.setGeometry(QtCore.QRect(800, 0, 551, 120))
+        self.ders_info.setStyleSheet("background: #354152;")
         self.ders_info.setFrameShape(QtWidgets.QFrame.Box)
         self.ders_info.setFrameShadow(QtWidgets.QFrame.Raised)
         self.ders_info.setMidLineWidth(1)
@@ -266,8 +269,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.kamera_ekrani.setText(_translate("MainWindow", "TextLabel"))
-        self.sinif_listesi.setWhatsThis(
-            _translate("MainWindow", "<html><head/><body><p>Öğrencilerin Bulunduğu Liste</p></body></html>"))
+        self.sinif_listesi.setWhatsThis(_translate("MainWindow", "<html><head/><body><p>Öğrencilerin Bulunduğu Liste</p></body></html>"))
         item = self.sinif_listesi.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "1"))
         item = self.sinif_listesi.verticalHeaderItem(1)
@@ -304,8 +306,7 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Yoklama Durumu"))
         item = self.sinif_listesi.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Tarih"))
-        self.labelGirisCikis_3.setText(_translate("MainWindow",
-                                                  "<html><head/><body><p>Adı Soyadı :</p><p>Okul No :</p><p>Girdiği Ders :</p></body></html>"))
+        self.labelGirisCikis_3.setText(_translate("MainWindow", "<html><head/><body><p>Adı Soyadı :</p><p>Okul No :</p><p>Girdiği Ders :</p></body></html>"))
         self.label_adiSoyadi.setText(_translate("MainWindow", "Adı Soyadı"))
         self.label_okulNo.setText(_translate("MainWindow", "Okul No"))
         self.label_girilenDers.setText(_translate("MainWindow", "Girilen Ders"))
@@ -315,8 +316,7 @@ class Ui_MainWindow(object):
         self.lbl_duygu.setText(_translate("MainWindow", "NULL"))
         self.lbl_yas.setText(_translate("MainWindow", "NULL"))
         self.lbl_cinsiyet.setText(_translate("MainWindow", "NULL"))
-        self.labelGirisCikis_4.setText(_translate("MainWindow",
-                                                  "<html><head/><body><p>Ders Adı :</p><p>Ders Kodu :</p><p>Sınıf Mevcudu :</p></body></html>"))
+        self.labelGirisCikis_4.setText(_translate("MainWindow", "<html><head/><body><p>Ders Adı :</p><p>Ders Kodu :</p><p>Sınıf Mevcudu :</p></body></html>"))
         self.label_dersKodu.setText(_translate("MainWindow", "Ders Kodu"))
         self.label_sinifMevcudu.setText(_translate("MainWindow", "Sınıf Mevcudu"))
         self.label_dersAdi.setText(_translate("MainWindow", "Ders Adı"))
@@ -339,7 +339,6 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

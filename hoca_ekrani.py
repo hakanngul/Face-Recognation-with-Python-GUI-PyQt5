@@ -37,12 +37,12 @@ class HocaEkraniWidget(QMainWindow):
         self.UI()
 
     def DersEkleWidget(self):
+        print(self.kadi, self.sifre)
         try:
-            if self.kadi and self.sifre is not None:
-                from DersEkle import DersEkleWidget
-                self.dersEkleWidget = DersEkleWidget(self.kadi, self.sifre)
-            else:
-                QMessageBox.warning(self, "Uyarı", "Öğretmen Kullanıcı Ad Hatası")
+
+            from DersEkle import DersEkleWidget
+            self.dersEkleWidget = DersEkleWidget(self.kadi, self.sifre)
+
         except:
             print("Öğretmen Kullanıcı Ad Hatası")
 

@@ -29,8 +29,7 @@ class KayitWidget(QWidget):
                 self.ui.txt_kullaniciAdi.text().lower(),
                 self.ui.txt_sifre.text().lower(),
                 self.ui.txt_mail.text().lower(),
-                imagePath
-                )
+                imagePath)
         if self.ui.txt_adi.text() == "" or self.ui.txt_adi.text() == " " \
                 or self.ui.txt_soyadi.text() == "" or self.ui.txt_soyadi.text() == " " \
                 or self.ui.txt_kullaniciAdi.text() == "" or self.ui.txt_kullaniciAdi.text() == " " \
@@ -48,7 +47,6 @@ class KayitWidget(QWidget):
             MailKontrol = self.MailKontrol(self.ui.txt_mail.text().lower())
             if KullaniciAdiKontrol and MailKontrol:
                 result = self.Teacher.TeacherSignedUp(data)
-                ders.addTeacher(data)
                 if result:
                     QMessageBox.information(self, "Başarılı", "Kayıt Başarılı")
                     self.destroy(destroyWindow=True)
@@ -68,7 +66,6 @@ class KayitWidget(QWidget):
             for i in range(len(result)):
                 veri = ",".join(result[i])
                 liste.append(veri)
-
             if KullaniciAdi in liste:
                 QMessageBox.warning(self, "Uyarı", "Bu Kullanıcı Adı Kullanılmaktadır. Lütfen Başka Seçiniz")
                 return False

@@ -342,12 +342,13 @@ def allocateMemory():
             keras.backend.set_session(session)
 
             print("Face Analysis will run on GPU (gpu_", my_gpu, ")")
+            print("GPU Çalışıyor...")
         else:
             # this case has gpu but no enough memory to allocate
-            os.environ["CUDA_VISIBLE_DEVICES"] = ""  # run it on cpu
+            os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # run it on cpu
             # print("Even though the system has GPUs, there is no enough space in memory to allocate.")
-            print("DeepFace will run on CPU")
+            print("Face Analysis will run on CPU")
     else:
-        print("DeepFace will run on CPU")
+        print("Face Analysis will run on CPU")
 
 # ------------------------------

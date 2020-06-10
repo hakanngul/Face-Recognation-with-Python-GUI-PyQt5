@@ -76,7 +76,7 @@ class Ui_LoginForm(object):
         self.groupBox.setTitle("")
         self.groupBox.setObjectName("groupBox")
         self.label_2 = QtWidgets.QLabel(self.groupBox)
-        self.label_2.setGeometry(QtCore.QRect(50, 160, 311, 81))
+        self.label_2.setGeometry(QtCore.QRect(50, 160, 411, 81))
         self.label_2.setStyleSheet("color: #7E8BA3;\n"
                                    "font: 44px \"Helvetica Neue\", sans-serif;\n"
                                    "margin: 0px 0px 16px;")

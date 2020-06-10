@@ -145,7 +145,7 @@ class Ui_DersEkleForm(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.label_2 = QtWidgets.QLabel(self.frame)
-        self.label_2.setGeometry(QtCore.QRect(120, 30, 241, 61))
+        self.label_2.setGeometry(QtCore.QRect(120, 30, 341, 61))
         self.label_2.setStyleSheet("color: white;\n"
                                    "font: 44px \"Helvetica Neue\", sans-serif;\n"
                                    "margin: 0px 0px 16px;")
@@ -272,8 +272,8 @@ class Ui_DersEkleForm(object):
         self.text_adiSoyadi.setPlaceholderText(_translate("DersEkleForm", "Ders Hocası"))
 
 
-import resoruces_rc
 
+from ui_pages.resoruces_rc import *
 if __name__ == "__main__":
     import sys
 

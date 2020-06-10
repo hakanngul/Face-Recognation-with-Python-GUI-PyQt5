@@ -20,6 +20,7 @@ class OgretmenDuzenleWidget(QWidget):
         self.show()
 
     def getTeacherInformations(self):
+        print("giriş")
         try:
             result = list(self.Teacher.getTeacherInformation((self.hoca_kadi, self.hoca_sifre)))[0]
             self.id = result[0]
@@ -33,6 +34,7 @@ class OgretmenDuzenleWidget(QWidget):
             self.imagePath = result[8]
             data = [self.id, adi, soyadi, self.KullaniciAdi, email, verdigiDersler, bolum]
             self.UI_Settings(data)
+            print("deneme")
         except:
             QMessageBox.warning(self, "Uyarı", "Öğretmen Bulunamadı")
 
@@ -92,9 +94,8 @@ class OgretmenDuzenleWidget(QWidget):
         QMessageBox.information(self, "Bilgi", "Resim Çekme İşlemini Sonlandırmak İçin 'q' tuşuna basınız!")
         path = "ogretmenler/"
         print(path)
-        imgCunter = 0
+        impCounter = 0
         cam = cv2.VideoCapture(0)
-
         while True:
             ret, frame = cam.read()
             cv2.imshow("test", frame)
@@ -104,18 +105,17 @@ class OgretmenDuzenleWidget(QWidget):
             if key == ord("q"):
                 break
             elif key % 256 == 32:
-                imgCunter += 1
-                img_name = path + self.ui.txt_kadi.text() + f'_{str(imgCunter)}.jpg'
+                impCounter += 1
+                img_name = path + self.ui.txt_kadi.text() + f'_{str(impCounter)}.jpg'
                 cv2.imwrite(img_name, frame)
                 print("{} written!".format(img_name))
                 QMessageBox.information(self, "Bilgi", f'{img_name} Kayıt Edildi')
-            elif imgCunter > 2:
-                QMessageBox.information(self, "Uyarı", f'{imgCunter} adet fotoğraf yeterli')
-                self.UI_Settings()
+            elif impCounter > 2:
+                QMessageBox.information(self, "Uyarı", f'{impCounter} adet fotoğraf yeterli')
                 break
-
         cam.release()
         cv2.destroyAllWindows()
+        self.getTeacherInformations()
 
 
 if __name__ == "__main__":
