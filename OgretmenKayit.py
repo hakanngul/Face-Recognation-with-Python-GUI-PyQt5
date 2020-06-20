@@ -1,5 +1,4 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSlot
 
 from PyQt5.QtWidgets import QWidget, QMessageBox
 from ui_pages.ui_ogretmenKayit import Ui_OgretmenKayitForm

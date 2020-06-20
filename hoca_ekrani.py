@@ -150,9 +150,8 @@ class HocaEkraniWidget(QMainWindow):
 
 if __name__ == '__main__':
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle("fusion")
-    loginWindow = HocaEkraniWidget("hakn", "123456")
+    loginWindow = HocaEkraniWidget("ibrahim", "123456")
     loginWindow.show()
     sys.exit(app.exec_())

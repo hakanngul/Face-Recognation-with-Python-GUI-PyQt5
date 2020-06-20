@@ -20,23 +20,39 @@ class OgretmenDuzenleWidget(QWidget):
         self.show()
 
     def getTeacherInformations(self):
-        print("giriş")
-        try:
-            result = list(self.Teacher.getTeacherInformation((self.hoca_kadi, self.hoca_sifre)))[0]
-            self.id = result[0]
-            adi = result[1]
-            soyadi = result[2]
-            bolum = result[3]
-            self.KullaniciAdi = result[4]
-            self.sifre = result[5]
-            email = result[6]
+        result = list(self.Teacher.getTeacherInformation((self.hoca_kadi, self.hoca_sifre)))[0]
+        self.id = result[0]
+        adi = result[1]
+        soyadi = result[2]
+        bolum = result[3]
+        self.KullaniciAdi = result[4]
+        self.sifre = result[5]
+        email = result[6]
+        if result[7] is not None:
             verdigiDersler = result[7].split(",")
-            self.imagePath = result[8]
-            data = [self.id, adi, soyadi, self.KullaniciAdi, email, verdigiDersler, bolum]
-            self.UI_Settings(data)
-            print("deneme")
-        except:
-            QMessageBox.warning(self, "Uyarı", "Öğretmen Bulunamadı")
+        else:
+            verdigiDersler = []
+        self.imagePath = result[8]
+        data = [self.id, adi, soyadi, self.KullaniciAdi, email, verdigiDersler, bolum]
+        self.UI_Settings(data)
+        print("deneme")
+        # print("giriş")
+        # try:
+        #     result = list(self.Teacher.getTeacherInformation((self.hoca_kadi, self.hoca_sifre)))[0]
+        #     self.id = result[0]
+        #     adi = result[1]
+        #     soyadi = result[2]
+        #     bolum = result[3]
+        #     self.KullaniciAdi = result[4]
+        #     self.sifre = result[5]
+        #     email = result[6]
+        #     verdigiDersler = result[7].split(",")
+        #     self.imagePath = result[8]
+        #     data = [self.id, adi, soyadi, self.KullaniciAdi, email, verdigiDersler, bolum]
+        #     self.UI_Settings(data)
+        #     print("deneme")
+        # except:
+        #     QMessageBox.warning(self, "Uyarı", "Öğretmen Bulunamadı")
 
     def UI_Settings(self, data):
         self.ui.list_verilenDersler.clear()
@@ -123,6 +139,6 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     app.setStyle("fusion")
-    mainWindow = OgretmenDuzenleWidget("hakn", "123456")
+    mainWindow = OgretmenDuzenleWidget("ibrahim", "123456")
     mainWindow.show()
     sys.exit(app.exec_())

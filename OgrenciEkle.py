@@ -46,7 +46,6 @@ class OgrenciEkleWindow(QMainWindow):
         kontrol = self.OgrenciKayitKontrol()
         print("Kontrol", kontrol)
         if kontrol:
-            # self.result = db.OgrenciEkle(data)
             self.result = self.Student.addStudent(data)
             if self.result:
                 QMessageBox.information(self, "Bilgi", "Kayıt Başarılı Oldu")

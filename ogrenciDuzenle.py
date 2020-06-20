@@ -27,6 +27,7 @@ class OgrenciDuzenleWidget(QWidget):
         self.ui.resimYukle.clicked.connect(self.YeniResimCek)
 
     def UI_Settings(self):
+
         try:
             result = self.Student.getStudentInformations(self.ogrenci_no)
             self.result = list(result[0])
@@ -54,11 +55,12 @@ class OgrenciDuzenleWidget(QWidget):
             QMessageBox.critical(self, "Dikkat", "Bir Sorun Oluştu")
 
     def dersleriYuke(self):
-        if self.result[-1] != "":
+        if self.result[-1] != "" and self.result[-1] is not None:
             self.dersler = self.result[-1].split(",")
             self.ui.ogrenci_aldigiDersler.clear()
             self.ui.ogrenci_aldigiDersler.addItems(self.dersler)
         else:
+            self.dersler = []
             QMessageBox.warning(self, "Uyarı", "Öğrenciye Ait Kayıtlı Ders Yok")
             self.ui.btn_dersCikart.setEnabled(False)
 
@@ -114,8 +116,10 @@ class OgrenciDuzenleWidget(QWidget):
     def UpdateStudent(self, data):
         try:
             result = self.Student.UpdateStudent(data)
+            print("Güncelleme Başarılı")
         except:
             result = False
+            print("Güncellemede Sorun Oluştu")
             QMessageBox.critical(self, "Dikkat", "Güncellemede Sorun Oluştu")
         # result = self.Student.UpdateStudent(data)
         if result:
@@ -165,6 +169,6 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle("fusion")
-    loginWindow = OgrenciDuzenleWidget("15542512")
+    loginWindow = OgrenciDuzenleWidget("123456789")
     loginWindow.show()
     sys.exit(app.exec_())

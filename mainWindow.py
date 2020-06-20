@@ -2,14 +2,12 @@ import mimetypes
 import os
 import smtplib
 import time
-from datetime import datetime
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
-from numba import jit, cuda
-
+from datetime import datetime
 import cv2
 import numpy as np
 import pandas as pd
@@ -304,9 +302,6 @@ class MainWindow(QMainWindow):
         self.YoklamaGuncelle(str(self.okulNo))
 
     def saveFile(self):
-        QMessageBox.information(self,"Bilgi","Mail Gönderiliyor...")
-        import pandas as pd
-        from datetime import datetime
         now = datetime.now()
         df = pd.DataFrame()
         rows = self.ui.sinif_listesi.rowCount()
@@ -319,6 +314,8 @@ class MainWindow(QMainWindow):
         home = home + "/.faceAnalytics"
         home = home + "/YoklamaKayitlari"
         df.columns = ['OkulNo', 'Adı Soyadı', 'Yoklama Durumu', 'Tarih']
+        print(df)
+        # QMessageBox.critical(self, "Bekle","Kontrol")
         if os.path.exists(home + "/" + fileName + ".xlsx"):
             print("Bu Kayıt Var")
             df.to_excel(home + "/" + fileName + "_1" + ".xlsx", index=False, header=True)
@@ -326,8 +323,9 @@ class MainWindow(QMainWindow):
             df.to_excel(home + "/" + fileName + ".xlsx", index=False, header=True)
         self.home = home + "/"
         fileName += ".xlsx"
+        QMessageBox.information(self, "Bilgi", "Mail Gönderiliyor...")
         response = self.SendMail(fileName)
-        # print(response)
+        print(response)
         if response:
             QMessageBox.information(self, "Bilgi", "Mail Gönderildi")
         else:
@@ -492,7 +490,6 @@ class MainWindow(QMainWindow):
                             candidate = df.iloc[0]
                             self.employee_name = candidate['employee']
                             self.best_distance = candidate['distance']
-
 
                 time_left = int(self.time_threshold - (toc - self.tic))
 
