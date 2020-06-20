@@ -31,6 +31,7 @@ class HocaEkraniWidget(QMainWindow):
         self.ui.action_OgretmenDuzenle.triggered.connect(self.OgretmenDuzenleWidget)
         self.ui.btn_login.clicked.connect(self.AnaPencereWidget)
         self.ui.action_SayfayiYenile.triggered.connect(self.RefreshWidget)
+        self.ui.sinif_liste.triggered.connect(self.SinifListesiWidget)
 
     def RefreshWidget(self):
         QMessageBox.information(self, "Bilgi", "Sayfa Yenileniyor...")
@@ -39,7 +40,6 @@ class HocaEkraniWidget(QMainWindow):
     def DersEkleWidget(self):
         print(self.kadi, self.sifre)
         try:
-
             from DersEkle import DersEkleWidget
             self.dersEkleWidget = DersEkleWidget(self.kadi, self.sifre)
 
@@ -59,6 +59,12 @@ class HocaEkraniWidget(QMainWindow):
         except:
             print("Öğretmen Kullanıcı Ad Hatası")
 
+    def SinifListesiWidget(self):
+        try:
+            from OgrenciListesi import OgrenciListesiWidget
+            self.OgrenciListesi = OgrenciListesiWidget(self.ui.cmb_Dersler.currentText())
+        except:
+            QMessageBox.critical(self, "Uyarı", "Öğrenci Listesi Sayfasında Sorun Oluştu")
     def OgrenciEkleWidget(self):
         try:
             from OgrenciEkle import OgrenciEkleWindow

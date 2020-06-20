@@ -19,12 +19,12 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet("")
         self.Window = QtWidgets.QWidget(MainWindow)
         self.Window.setStyleSheet("\n"
-"QLabel{color:white;}\n"
-"QTableWidget{background:white;}\n"
-"QTableWidget::item {\n"
-"    background-color: white;\n"
-"    color:black;\n"
-"}")
+                                  "QLabel{color:white;}\n"
+                                  "QTableWidget{background:white;}\n"
+                                  "QTableWidget::item {\n"
+                                  "    background-color: white;\n"
+                                  "    color:black;\n"
+                                  "}")
         self.Window.setObjectName("Window")
         self.kamera_ekrani = QtWidgets.QLabel(self.Window)
         self.kamera_ekrani.setGeometry(QtCore.QRect(0, 120, 800, 470))
@@ -75,7 +75,7 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.sinif_listesi.setVerticalHeaderItem(13, item)
         item = QtWidgets.QTableWidgetItem()
-        item.setTextAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignVCenter)
+        item.setTextAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignVCenter)
         font = QtGui.QFont()
         font.setKerning(False)
         item.setFont(font)
@@ -269,7 +269,8 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.kamera_ekrani.setText(_translate("MainWindow", "TextLabel"))
-        self.sinif_listesi.setWhatsThis(_translate("MainWindow", "<html><head/><body><p>Öğrencilerin Bulunduğu Liste</p></body></html>"))
+        self.sinif_listesi.setWhatsThis(
+            _translate("MainWindow", "<html><head/><body><p>Öğrencilerin Bulunduğu Liste</p></body></html>"))
         item = self.sinif_listesi.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "1"))
         item = self.sinif_listesi.verticalHeaderItem(1)
@@ -306,7 +307,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Yoklama Durumu"))
         item = self.sinif_listesi.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Tarih"))
-        self.labelGirisCikis_3.setText(_translate("MainWindow", "<html><head/><body><p>Adı Soyadı :</p><p>Okul No :</p><p>Girdiği Ders :</p></body></html>"))
+        self.labelGirisCikis_3.setText(_translate("MainWindow",
+                                                  "<html><head/><body><p>Adı Soyadı :</p><p>Okul No :</p><p>Girdiği Ders :</p></body></html>"))
         self.label_adiSoyadi.setText(_translate("MainWindow", "Adı Soyadı"))
         self.label_okulNo.setText(_translate("MainWindow", "Okul No"))
         self.label_girilenDers.setText(_translate("MainWindow", "Girilen Ders"))
@@ -316,7 +318,8 @@ class Ui_MainWindow(object):
         self.lbl_duygu.setText(_translate("MainWindow", "NULL"))
         self.lbl_yas.setText(_translate("MainWindow", "NULL"))
         self.lbl_cinsiyet.setText(_translate("MainWindow", "NULL"))
-        self.labelGirisCikis_4.setText(_translate("MainWindow", "<html><head/><body><p>Ders Adı :</p><p>Ders Kodu :</p><p>Sınıf Mevcudu :</p></body></html>"))
+        self.labelGirisCikis_4.setText(_translate("MainWindow",
+                                                  "<html><head/><body><p>Ders Adı :</p><p>Ders Kodu :</p><p>Sınıf Mevcudu :</p></body></html>"))
         self.label_dersKodu.setText(_translate("MainWindow", "Ders Kodu"))
         self.label_sinifMevcudu.setText(_translate("MainWindow", "Sınıf Mevcudu"))
         self.label_dersAdi.setText(_translate("MainWindow", "Ders Adı"))
@@ -339,6 +342,7 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

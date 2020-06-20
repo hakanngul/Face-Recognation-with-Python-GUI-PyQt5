@@ -185,12 +185,15 @@ class Ui_HocaEkraniMainWindow(object):
         self.actionExit.setObjectName("actionExit")
         self.action_SayfayiYenile = QtWidgets.QAction(HocaEkraniMainWindow)
         self.action_SayfayiYenile.setObjectName("action_SayfayiYenile")
+        self.sinif_liste = QtWidgets.QAction(HocaEkraniMainWindow)
+        self.sinif_liste.setObjectName("action_SinifListesi")
         self.menuEkle.addAction(self.action_DersEkle)
         self.menuEkle.addAction(self.action_OgrenciEkle)
         self.menuEkle.addAction(self.action_DerseOgrenciEkle)
         self.menuExit.addAction(self.action_OgrenciDuzenle)
         self.menuExit.addAction(self.action_OgretmenDuzenle)
         self.menuExit.addAction(self.action_SayfayiYenile)
+        self.menuExit.addAction(self.sinif_liste)
         self.menuExit_2.addAction(self.actionExit)
         self.menubar.addAction(self.menuEkle.menuAction())
         self.menubar.addAction(self.menuExit.menuAction())
@@ -224,6 +227,7 @@ class Ui_HocaEkraniMainWindow(object):
         self.actionExit_2.setText(_translate("HocaEkraniMainWindow", "Exit"))
         self.actionExit.setText(_translate("HocaEkraniMainWindow", "Exit"))
         self.action_SayfayiYenile.setText(_translate("HocaEkraniMainWindow", "Sayfayı Yenile"))
+        self.sinif_liste.setText(_translate("HocaEkraniMainWindow", "Sınıf Listesi"))
 
 
 if __name__ == "__main__":

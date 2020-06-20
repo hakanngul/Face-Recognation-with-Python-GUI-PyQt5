@@ -22,6 +22,7 @@ from tqdm import tqdm
 import DataBaseManager
 from ui_pages.ui_mainWindow import Ui_MainWindow
 
+# Kullanmış oldğum bilgisayarın ekran kartı bilgilerini ifade etmektedir.
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '0'
 os.environ["CUDA_DEVICE_ORDER"] = "0000:01:00.0"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -132,7 +133,7 @@ class MainWindow(QMainWindow):
     def LoadDatabases(self):
         try:
             self.LoadClassInformations()
-            self.Table() # SinifListesi Yüklemesi İşlemi Yapılıyor
+            self.Table()  # SinifListesi Yüklemesi İşlemi Yapılıyor
         except:
             print("DB de sorun oluştu")
 
@@ -249,7 +250,6 @@ class MainWindow(QMainWindow):
 
     def LoadClassInformations(self):
         result = list(self.Lesson.getLessonAllInformation(self.dersGenelKod)[0])
-        # result = list(result[0])
         self.dersId = result[0]
         self.dersAdi = result[1]
         self.dersKodu = result[2]
@@ -285,8 +285,8 @@ class MainWindow(QMainWindow):
         self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 300)
         self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 650)
         self.timer = QTimer(self)
-        self.timer.timeout.connect(self.Camera)
         self.timer.start(1000. / 24)
+        self.timer.timeout.connect(self.Camera)
         self.statusbarChanged("Kamera Açıldı")
 
     def getIformation(self, emp_name):
@@ -304,17 +304,16 @@ class MainWindow(QMainWindow):
         self.YoklamaGuncelle(str(self.okulNo))
 
     def saveFile(self):
+        QMessageBox.information(self,"Bilgi","Mail Gönderiliyor...")
         import pandas as pd
         from datetime import datetime
         now = datetime.now()
         df = pd.DataFrame()
         rows = self.ui.sinif_listesi.rowCount()
         columns = self.ui.sinif_listesi.columnCount()
-
         for i in range(rows):
             for j in range(columns):
                 df.loc[i, j] = str(self.ui.sinif_listesi.item(i, j).text())
-
         fileName = f'{str(self.dersGenelKod)}_{now.day}_{now.month}_{now.year}'
         home = str(Path.home())
         home = home + "/.faceAnalytics"
@@ -325,7 +324,6 @@ class MainWindow(QMainWindow):
             df.to_excel(home + "/" + fileName + "_1" + ".xlsx", index=False, header=True)
         else:
             df.to_excel(home + "/" + fileName + ".xlsx", index=False, header=True)
-
         self.home = home + "/"
         fileName += ".xlsx"
         response = self.SendMail(fileName)
@@ -355,9 +353,7 @@ class MainWindow(QMainWindow):
             ctype, encoding = mimetypes.guess_type(fileToSend)
             if ctype is None or encoding is not None:
                 ctype = "application/octet-stream"
-
             maintype, subtype = ctype.split("/", 1)
-
             if maintype == "text":
                 fp = open(fileToSend)
                 attachment = MIMEText(fp.read(), _subtype=subtype)
@@ -450,6 +446,7 @@ class MainWindow(QMainWindow):
             self.detected_faces_final = detected_faces.copy()
             self.tic = time.time()
             self.sayac = 0
+
         if self.freeze:
             toc = time.time()
 
@@ -472,13 +469,13 @@ class MainWindow(QMainWindow):
                     print("Gerçek Emotion :", list(self.emotion)[0])
                     self.ui.lbl_duygu.setText(list(self.emotion)[0])
                     if custom_face.shape[1:3] == self.input_shape:
-                        if self.df.shape[0] > 0:  # if there are images to verify, apply face recognition
+                        if self.df.shape[0] > 0:  # Yüz eşleştirilmesi yapılacak yüzlerin olması durumunda işleme
+                            # girmektedir.
                             img1_representation = self.model.predict(custom_face)[0, :]
 
                             def findDistance(row):
                                 distance_metric = row['distance_metric']
                                 img2_representation = row['embedding']
-
                                 distance = 1000
                                 if distance_metric == 'cosine':
                                     distance = dst.findCosineDistance(img1_representation, img2_representation)
@@ -487,7 +484,6 @@ class MainWindow(QMainWindow):
                                 elif distance_metric == 'euclidean_l2':
                                     distance = dst.findEuclideanDistance(dst.l2_normalize(img1_representation),
                                                                          dst.l2_normalize(img2_representation))
-
                                 return distance
 
                             self.df['distance'] = self.df.apply(findDistance, axis=1)
@@ -496,6 +492,8 @@ class MainWindow(QMainWindow):
                             candidate = df.iloc[0]
                             self.employee_name = candidate['employee']
                             self.best_distance = candidate['distance']
+
+
                 time_left = int(self.time_threshold - (toc - self.tic))
 
                 if self.best_distance <= self.threshold:
