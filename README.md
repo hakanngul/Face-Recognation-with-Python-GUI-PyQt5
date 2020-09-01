@@ -6,5 +6,4 @@ Python GUI Artificial Intelligence Supported Face recognition system
 (Face recognition and model loading in here performed.)
 ![2020-09-01 15_54_30-185542008-HakanGÜL-BitirmeProjesiRaporu pdf](https://user-images.githubusercontent.com/34252239/91853904-91344880-ec6b-11ea-8288-6967cc955573.png)
 
-
-![2020-09-01 16_02_50-185542008-HakanGÜL-BitirmeProjesiRaporu pdf](https://user-images.githubusercontent.com/34252239/91854628-aeb5e200-ec6c-11ea-9469-e511b92fec9a.png)
+###### Projenin sağlıklı çalışabilmesi için mysql community yüklü olması gerekmektedir. Yükleme işlemi yaptıktan sonra dbSQL içerisindeki databaseleri bir veritabanı oluşturarak mydatabase2 gibi içerisine yükleme yapabilirsiniz yada sadece bir veritabanı oluşturup DBCreate.py dosyasını çalıştırarak gerekli alanların oluşmasını sağlayabilirsiniz.
